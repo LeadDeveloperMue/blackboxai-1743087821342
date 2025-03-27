@@ -1,0 +1,98 @@
+/* Color schemes */
+:root {
+  --primary: #FF5A5F;
+  --secondary: #008489;
+  --dark: #484848;
+  --light: #767676;
+  
+  /* Light mode */
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg: #ffffff;
+  --header-bg: #ffffff;
+  --footer-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #f8f9fa;
+  --card-bg: #2d2d2d;
+  --header-bg: #1e1e1e;
+  --footer-bg: #1e1e1e;
+}
+
+/* Dark mode toggle */
+.theme-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Base styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header, footer {
+  background-color: var(--header-bg);
+}
+
+.property-card, .search-container {
+  background-color: var(--card-bg);
+}
+
+/* Zimbabwe theme elements */
+.zim-feature {
+  border-left: 4px solid #FFD700; /* Zimbabwe gold */
+  padding-left: 1rem;
+}
+
+.zim-highlight {
+  color: #007A4D; /* Zimbabwe green */
+  font-weight: 600;
+}
+
+/* Rest of your existing styles... */
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #e04e54;
+  transform: translateY(-1px);
+}
+
+.property-card {
+  transition: transform 0.2s;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.property-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+}
