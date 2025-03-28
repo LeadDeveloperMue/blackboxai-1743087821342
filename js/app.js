@@ -138,8 +138,61 @@ function setupBookingProcess() {
   }
 }
 
+// Map Initialization
+function initPropertyMap() {
+    if (document.getElementById('property-map')) {
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+        
+        const map = new mapboxgl.Map({
+            container: 'property-map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [25.8290, -17.9243], // Victoria Falls coordinates
+            zoom: 12
+        });
+
+        // Add marker
+        new mapboxgl.Marker({ color: '#EF4444' })
+            .setLngLat([25.8290, -17.9243])
+            .setPopup(new mapboxgl.Popup().setHTML("<h3 class='font-bold'>Victoria Falls Lodge</h3>"))
+            .addTo(map);
+    }
+}
+
+// Booking Calendar Logic
+function setupBookingCalendar() {
+    const checkInInput = document.getElementById('booking-check-in');
+    const checkOutInput = document.getElementById('booking-check-out');
+    
+    if (checkInInput && checkOutInput) {
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        checkInInput.min = today;
+
+        // Enable check-out when check-in is selected
+        checkInInput.addEventListener('change', function() {
+            checkOutInput.disabled = false;
+            checkOutInput.min = this.value;
+            
+            // Calculate minimum check-out date (next day)
+            const nextDay = new Date(this.value);
+            nextDay.setDate(nextDay.getDate() + 1);
+            checkOutInput.min = nextDay.toISOString().split('T')[0];
+        });
+
+        // Validate date range
+        checkOutInput.addEventListener('change', function() {
+            if (new Date(this.value) <= new Date(checkInInput.value)) {
+                this.value = '';
+                alert('Check-out date must be after check-in date');
+            }
+        });
+    }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    setupBookingCalendar();
+    initPropertyMap();
   setupThemeToggle();
   setupCurrencyConverter();
   setupLanguageToggle();
